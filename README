@@ -4,9 +4,9 @@ HOWTOs:
 https://software.intel.com/content/www/us/en/develop/tools/oneapi/base-toolkit/download.html
 
 - To create a dynamic library libonedal_wrapper.so which statically links Intel DAAL's libraries:
-g++ -I/home/g.racic/sync/intel/oneapi/dal/latest/include -DONEAPI_DAAL_USE_MKL_GPU_GEMM -Wl,--start-group -lpthread -ldl -lOpenCL -Wl,--end-group -c -fpic *.cc *.cc
+g++ -I/home/g.racic/sync/intel/oneapi/dal/latest/include -DONEAPI_DAAL_USE_MKL_GPU_GEMM -Wl,--start-group -std=c++11 -lpthread -ldl -lOpenCL -Wl,--end-group -c -fpic *.cc *.cc
 g++ -shared -o libonedal_wrapper.so *.o -L/home/g.racic/sync/intel/oneapi/dal/latest/lib/intel64 -l:libonedal_core.a -l:libonedal_sequential.a
 
 - To compile the test with the dynamic library:
-g++ -L/home/g.racic/sync/inteldaalwrapper -I/home/g.racic/sync/intel/oneapi/dal/latest/include -I/home/g.racic/sync/inteldaalwrapper -Wall -o test test_wrapper.cc -lonedal_wrapper -lpthread -ldl
+g++ -L/home/g.racic/sync/inteldaalwrapper -I/home/g.racic/sync/intel/oneapi/dal/latest/include -I/home/g.racic/sync/inteldaalwrapper -Wall -o test test_wrapper.cc -std=c++11 -lonedal_wrapper -lpthread -ldl
 LD_LIBRARY_PATH=/home/g.racic/sync/inteldaalwrapper:$LD_LIBRARY_PATH

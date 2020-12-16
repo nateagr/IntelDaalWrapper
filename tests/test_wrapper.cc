@@ -2,11 +2,16 @@
 #include "predictor.h"
 #include <string>
 #include <iostream>
+#include <unistd.h>
+#include <time.h>
+#include <stdlib.h>
 
 #define N_FEATURES 3
 
 int main(int argc, char* argv[])
 {
+    srand(time(NULL));	
+
     ModelBuilder* builder = createBuilder(N_FEATURES, 1);
     size_t treeid = createTree(builder, 7);
     size_t rootid = addSplitNode(builder, treeid, ModelBuilder::noParent, 0, 0, 0.13);
@@ -17,17 +22,18 @@ int main(int argc, char* argv[])
     size_t leaf3 = addLeafNode(builder, treeid, split2, 0, 0.1333);
     size_t leaf4 = addLeafNode(builder, treeid, split2, 1, 0.13333);
 
-    create(builder, N_FEATURES);
-    float fv[N_FEATURES] = { 0.133, 0.222 };
-    float scores = predict(fv);
-    std::cout << "Score: " << scores << std::endl;
+    ModelPtr model = build(builder);
+    
+    float fv[N_FEATURES];
+    for (int i = 0; i < 100; i++)
+    {
+        fv[0] = (rand() % 100) / 100.0;
+        fv[1] = (rand() % 100) / 100.0;
+        float scores = predict(model, fv, N_FEATURES);
+        std::cout << "FV: {" << fv[0] << "; " << fv[1] << "}; Score: " << scores << std::endl;
+    }
 
-    fv[0] = 0.12;
-    fv[1] = 0.3;
-    scores = predict(fv);
-    std::cout << "Score: " << scores << std::endl;
-
-    deleteBuilder(builder);
-
+    destroy();
+    
     return 0;
 }
