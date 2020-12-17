@@ -1,8 +1,6 @@
-#include "daal.h"
-#include "thread_safe_queue.h"
+nclude "daal.h"
 
 #define ONEDAL_WRAPPER_EXPORT 
-#define PREALLOCATED_PREDICTORS 10
 
 #ifdef SWIG
 #define CAPI_EXPORT
@@ -25,11 +23,8 @@ extern "C" {
 	using namespace daal::algorithms::gbt::regression;
 	using namespace daal::data_management;
 
-	ThreadsafeQueue<prediction::Batch<>*> predictors;
-
-	CAPI_EXPORT extern ModelPtr build(ModelBuilder* builder);
-	CAPI_EXPORT extern float predict(ModelPtr model, float fv[], size_t nFeatures);
-	CAPI_EXPORT extern void destroy();
+	CAPI_EXPORT extern prediction::Batch<>* createPredictor(Model* model, size_t nFeatures);
+	CAPI_EXPORT extern float predict(prediction::Batch<>* predictor, float fv[]);
 
 #ifdef __cplusplus
 } /* end extern "C" */

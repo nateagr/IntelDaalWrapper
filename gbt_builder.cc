@@ -27,6 +27,11 @@ extern "C" {
         return builder->addSplitNode(treeId, ModelBuilder::noParent, 0, featureIndex, featureValue);
     }
 
+    Model* build(ModelBuilder* builder)
+    {
+        return builder->getModel().get();
+    }
+
     void deleteBuilder(ModelBuilder* builder)
     {
         delete builder;

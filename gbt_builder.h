@@ -20,14 +20,15 @@
 extern "C" {
 #endif
 
-using namespace daal::algorithms::gbt::regression;
+	using namespace daal::algorithms::gbt::regression;
 
-CAPI_EXPORT extern ModelBuilder* createBuilder(size_t nFeatures, size_t nTrees);
-CAPI_EXPORT extern size_t createTree(ModelBuilder* builder, size_t nNodes);
-CAPI_EXPORT extern size_t addLeafNode(ModelBuilder* builder, size_t treeId, size_t parentId, size_t position, double response);
-CAPI_EXPORT extern size_t addRoot(ModelBuilder* builder, size_t treeId, size_t featureIndex, double featureValue);
-CAPI_EXPORT extern size_t addSplitNode(ModelBuilder* builder, size_t treeId, size_t parentId, size_t position, size_t featureIndex, double featureValue);
-CAPI_EXPORT extern void deleteBuilder(ModelBuilder* builder);
+	CAPI_EXPORT extern ModelBuilder* createBuilder(size_t nFeatures, size_t nTrees);
+	CAPI_EXPORT extern size_t createTree(ModelBuilder* builder, size_t nNodes);
+	CAPI_EXPORT extern size_t addLeafNode(ModelBuilder* builder, size_t treeId, size_t parentId, size_t position, double response);
+	CAPI_EXPORT extern size_t addRoot(ModelBuilder* builder, size_t treeId, size_t featureIndex, double featureValue);
+	CAPI_EXPORT extern size_t addSplitNode(ModelBuilder* builder, size_t treeId, size_t parentId, size_t position, size_t featureIndex, double featureValue);
+	CAPI_EXPORT extern Model* build(ModelBuilder* builder);
+	CAPI_EXPORT extern void deleteBuilder(ModelBuilder* builder);
 
 #ifdef __cplusplus
 } /* end extern "C" */
