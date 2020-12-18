@@ -8,6 +8,7 @@ Intel Daal libraries. The easiest way is to install oneAPI base toolkit: https:/
 
 ## Installation
 
+Update variable DAAL_DIR in Makefile to point to your Intel Daal installation directory
 ```
 make build
 ```
