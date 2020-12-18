@@ -1,5 +1,4 @@
 CXX := g++
-NVCC := nvcc
 
 WRAPPER_SRC = $(wildcard *.cc)
 WRAPPER_TEST_SRC = $(wildcard tests/*.cc)
