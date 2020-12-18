@@ -1,11 +1,11 @@
 #include "predictor.h"
 
 extern "C" {
-    prediction::Batch<>* createPredictor(Model* model, size_t nFeatures)
+    prediction::Batch<>* createPredictor(ModelPtr* model, size_t nFeatures)
     {
         NumericTablePtr table = NumericTablePtr(new HomogenNumericTable<float>(0, nFeatures, 1));
         prediction::Batch<>* algorithm = new prediction::Batch<>();
-        algorithm->input.set(prediction::model, ModelPtr(model));
+        algorithm->input.set(prediction::model, ModelPtr(*model));
         algorithm->input.set(prediction::data, table);
         return algorithm;
     }
@@ -22,5 +22,15 @@ extern "C" {
         resultTable->getBlockOfRows(0, 1, readOnly, block);
         float* scores = block.getBlockPtr();
         return scores[0];
+    }
+
+    void deletePredictor(prediction::Batch<>* predictor)
+    {
+        delete predictor;
+    }
+
+    void deleteModel(ModelPtr* model)
+    {
+        delete model;
     }
 }

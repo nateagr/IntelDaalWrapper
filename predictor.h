@@ -23,8 +23,10 @@ extern "C" {
 	using namespace daal::algorithms::gbt::regression;
 	using namespace daal::data_management;
 
-	CAPI_EXPORT extern prediction::Batch<>* createPredictor(Model* model, size_t nFeatures);
+	CAPI_EXPORT extern prediction::Batch<>* createPredictor(ModelPtr* model, size_t nFeatures);
 	CAPI_EXPORT extern float predict(prediction::Batch<>* predictor, float fv[]);
+	CAPI_EXPORT extern void deletePredictor(prediction::Batch<>* predictor);
+	CAPI_EXPORT extern void deleteModel(ModelPtr* model);
 
 #ifdef __cplusplus
 } /* end extern "C" */

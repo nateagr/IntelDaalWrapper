@@ -22,17 +22,23 @@ int main(int argc, char* argv[])
     size_t leaf3 = addLeafNode(builder, treeid, split2, 0, 0.1333);
     size_t leaf4 = addLeafNode(builder, treeid, split2, 1, 0.13333);
 
-    Model* model = build(builder);
-    prediction::Batch<>* predictor = createPredictor(model, N_FEATURES); 
+    ModelPtr* model = build(builder);
+    prediction::Batch<>* predictor1 = createPredictor(model, N_FEATURES); 
+    prediction::Batch<>* predictor2 = createPredictor(model, N_FEATURES);
 
     float fv[N_FEATURES];
     for (int i = 0; i < 100; i++)
     {
         fv[0] = (rand() % 100) / 100.0;
         fv[1] = (rand() % 100) / 100.0;
-        float scores = predict(predictor, fv);
+        float scores = predict(predictor1, fv);
         std::cout << "FV: {" << fv[0] << "; " << fv[1] << "}; Score: " << scores << std::endl;
     }
  
+    deleteBuilder(builder);
+    deletePredictor(predictor1);
+    deletePredictor(predictor2);
+    deleteModel(model);
+
     return 0;
 }

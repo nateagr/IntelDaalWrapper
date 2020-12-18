@@ -27,7 +27,7 @@ extern "C" {
 	CAPI_EXPORT extern size_t addLeafNode(ModelBuilder* builder, size_t treeId, size_t parentId, size_t position, double response);
 	CAPI_EXPORT extern size_t addRoot(ModelBuilder* builder, size_t treeId, size_t featureIndex, double featureValue);
 	CAPI_EXPORT extern size_t addSplitNode(ModelBuilder* builder, size_t treeId, size_t parentId, size_t position, size_t featureIndex, double featureValue);
-	CAPI_EXPORT extern Model* build(ModelBuilder* builder);
+	CAPI_EXPORT extern ModelPtr* build(ModelBuilder* builder);
 	CAPI_EXPORT extern void deleteBuilder(ModelBuilder* builder);
 
 #ifdef __cplusplus
